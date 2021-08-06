@@ -56,7 +56,8 @@
 		"RepairBot" = "repairbot",
 		"Hover" = "hovermommi",
 		"Junkheap" = "junkmommi",
-		"Cutie" = "cutie"
+		"Cutie" = "cutie",
+		"Pony" = "pony"
 		)
 	speed_modifier = MOMMI_NT_SPEED_MODIFIER
 
