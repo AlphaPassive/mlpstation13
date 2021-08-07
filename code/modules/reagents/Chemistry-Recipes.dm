@@ -3809,5 +3809,12 @@
 	required_reagents = list(PICCOLYN = 1, INACUSIATE = 1, SUGAR = 1)
 	result_amount = 3
 
+/datum/chemical_reaction/marejuice
+	name = "Mare Juice"
+	id = MAREJUICE
+	result = MAREJUICE
+	required_reagents = list(MUTAGEN = 5, COLORFUL_REAGENT = 5, SUGAR = 5 )
+	result_amount = 5
+
 #undef ALERT_AMOUNT_ONLY
 #undef ALERT_ALL_REAGENTS

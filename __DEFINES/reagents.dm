@@ -447,7 +447,7 @@
 #define FESTIVE_EGGNOG	"festive_eggnog"
 #define TENDIES			"tendies"
 #define DSYRUP			"dsyrup"
-
+#define MAREJUICE       "mare_juice"
 #define TUNGSTEN 			"tungsten"
 #define LITHIUMSODIUMTUNGSTATE 			"lithiumsodiumtungstate"
 #define GROUND_ROCK 			"ground_rock"

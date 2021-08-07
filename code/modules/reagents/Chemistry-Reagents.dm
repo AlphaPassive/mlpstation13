@@ -9501,3 +9501,80 @@ var/global/list/tonio_doesnt_remove=list("tonio", "blood")
 	color = "#571212" //like a dark red
 	density = 1.00 //basically water
 	specheatcap = 4.184
+
+
+
+/datum/reagent/marejuice
+	name = "Mare Juice"
+	id = MAREJUICE
+	description = "A fruity smelling liquid, reportedly able to change the color of mares coat and at higher doses can change a Human in to a pony."
+	reagent_state = REAGENT_STATE_LIQUID
+	color = "#f9b8d2" //Pinkie pie color
+	density = 1.245
+	specheatcap = 0.25
+	overdose_am = 5
+
+/datum/reagent/marejuice/on_mob_life(var/mob/living/M)		
+	if(..())
+		return 1
+	if(ispony(M))
+
+		var/mob/living/carbon/human/human = M
+		to_chat(M, "<span class='warning'>You change color!</span>") // Makes you a random color
+		human.set_species("Pony")
+		human.multicolor_skin_r = rand(0,255)
+		human.multicolor_skin_g = rand(0,255)
+		human.multicolor_skin_b = rand(0,255)
+		human.regenerate_icons()
+		playsound(M, 'sound/misc/squee.ogg', 50, 1)
+		M.reagents.del_reagent("mare_juice")
+
+
+/datum/reagent/marejuice/on_overdose(var/mob/living/M) 
+
+	if(..())
+		return 1
+
+	if(ismanifested(M))
+		to_chat(M, "<span class='warning'>You can feel intriguing reagents seeping into your body, but they don't seem to react at all.</span>")
+		M.reagents.del_reagent("mare_juice")
+		
+
+	if(ishuman(M))
+
+		var/mob/living/carbon/human/human = M
+		if(!ispony(human))
+
+			to_chat(M, "<span class='warning'>Your flesh rapidly mutates!</span>") // Makes you a random color
+			human.set_species("Pony")
+			human.multicolor_skin_r = rand(0,255)
+			human.multicolor_skin_g = rand(0,255)
+			human.multicolor_skin_b = rand(0,255)
+			playsound(M, 'sound/misc/squee.ogg', 50, 1)
+
+			human.regenerate_icons()
+
+			
+			var/list/species_hair = valid_sprite_accessories(hair_styles_list, null, (human.species.name || null))
+			if(human.my_appearance.f_style && species_hair.len)
+				var/new_hstyle = input(M, "Select an hair style", "Grooming")  as null|anything in species_hair
+				if(new_hstyle)
+					human.my_appearance.h_style = new_hstyle
+
+			var/list/species_facial_hair = valid_sprite_accessories(facial_hair_styles_list, null, (human.species.name || null))
+			if(human.my_appearance.f_style && species_facial_hair.len)
+				var/new_fstyle = input(M, "Select a facial hair style", "Grooming")  as null|anything in species_facial_hair
+				if(new_fstyle)
+					human.my_appearance.f_style = new_fstyle
+
+			var/list/species_tail = valid_sprite_accessories(tail_styles_list, null, (human.species.name || null))
+			if(human.my_appearance.t_style && species_tail.len)
+				var/new_tstyle = input(M, "Select a tail style", "Grooming")  as null|anything in species_tail
+				if(new_tstyle)
+					human.my_appearance.t_style = new_tstyle
+
+			
+
+			human.regenerate_icons()
+			M.setCloneLoss(0)
+			M.reagents.del_reagent("mare_juice")
